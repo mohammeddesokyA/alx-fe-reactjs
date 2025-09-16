@@ -6,8 +6,8 @@ const EditRecipeForm = ({ recipe, onFinish }) => {
   const [title, setTitle] = useState(recipe.title);
   const [description, setDescription] = useState(recipe.description);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = (event) => {
+    event.preventDefault();  // منع إعادة تحميل الصفحة عند الإرسال
     if (!title.trim() || !description.trim()) return;
     updateRecipe({ ...recipe, title, description });
     onFinish();
