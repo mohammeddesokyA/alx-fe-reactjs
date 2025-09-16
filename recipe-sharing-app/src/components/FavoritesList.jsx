@@ -1,39 +1,38 @@
-// RecommendationsList.jsx - مكون جديد
-import { useEffect } from 'react';
+// FavoritesList.jsx - مكون جديد
 import { useRecipeStore } from './recipeStore';
 import { Link } from 'react-router-dom';
 
-export default function RecommendationsList() {
-  const { recommendations, generateRecommendations, recipes } = useRecipeStore();
+export default function FavoritesList() {
+  const { favorites, recipes } = useRecipeStore();
+  
+  const favoriteRecipes = recipes.filter(recipe => 
+    favorites.includes(recipe.id)
+  );
 
-  useEffect(() => {
-    generateRecommendations();
-  }, [generateRecommendations]);
-
-  if (recommendations.length === 0) {
+  if (favoriteRecipes.length === 0) {
     return (
       <div style={{ textAlign: 'center', padding: '20px', color: '#777' }}>
-        <h2>Recommended For You</h2>
-        <p>Start adding recipes to your favorites to get personalized recommendations.</p>
+        <h2>My Favorites</h2>
+        <p>You haven't added any recipes to your favorites yet.</p>
       </div>
     );
   }
 
   return (
     <div>
-      <h2 style={{ color: '#5a2d82', marginBottom: '16px' }}>Recommended For You</h2>
+      <h2 style={{ color: '#5a2d82', marginBottom: '16px' }}>My Favorites</h2>
       <div style={{ display: 'grid', gap: 12 }}>
-        {recommendations.map(recipe => (
+        {favoriteRecipes.map(recipe => (
           <Link 
             key={recipe.id} 
             to={`/recipes/${recipe.id}`} 
             style={{
               padding: 12,
-              background: '#f0f5ff',
+              background: '#fff9e6',
               borderRadius: 4,
               textDecoration: 'none',
               boxShadow: '0 1px 4px rgba(0,0,0,0.1)',
-              border: '1px solid #5a2d82'
+              border: '1px solid #ffd700'
             }}
           >
             <h3 style={{ margin: '0 0 4px', color: '#5a2d82' }}>{recipe.title}</h3>

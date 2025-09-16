@@ -1,9 +1,12 @@
-/* src/App.jsx */
+// App.jsx - محدث
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import AddRecipeForm from './components/AddRecipeForm';
 import SearchBar from './components/SearchBar';
 import RecipeList from './components/RecipeList';
 import RecipeDetails from './components/RecipeDetails';
+import FavoritesList from './components/FavoritesList';
+import RecommendationsList from './components/RecommendationsList';
+import Navigation from './components/Navigation';
 import { useParams } from 'react-router-dom';
 
 const DetailsWrapper = () => {
@@ -16,15 +19,18 @@ export default function App() {
     <Router>
       <div style={styles.container}>
         <h1 style={styles.title}>Recipe Sharing Application</h1>
+        <Navigation />
         <Routes>
           <Route path="/" element={
             <>
               <AddRecipeForm />
               <SearchBar />
               <RecipeList />
+              <RecommendationsList />
             </>
           }/>
           <Route path="/recipes/:id" element={<DetailsWrapper />} />
+          <Route path="/favorites" element={<FavoritesList />} />
         </Routes>
       </div>
     </Router>
