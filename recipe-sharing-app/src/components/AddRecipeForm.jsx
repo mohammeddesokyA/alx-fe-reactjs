@@ -1,6 +1,6 @@
 // src/components/AddRecipeForm.jsx
 import { useState } from 'react';
-import { useRecipeStore } from '../recipeStore';
+import { useRecipeStore } from './recipeStore';
 
 const btnAnim = {
   transition: 'all 0.3s cubic-bezier(.56,2,.45,.78)',

@@ -1,7 +1,7 @@
 // src/components/RecipeList.jsx
-import { useRecipeStore } from '../recipeStore';
+import { useRecipeStore } from './recipeStore';
 import { FaBowlFood } from 'react-icons/fa6'; // تحتاج تثبيت react-icons
-
+    
 export default function RecipeList() {
   const recipes = useRecipeStore(state => state.recipes);
 
@@ -13,8 +13,8 @@ export default function RecipeList() {
         recipes.map(recipe => (
           <div key={recipe.id}
                style={{
-                 borderRadius: '18px',
-                 background: 'rgba(195,180,255,0.14)',
+                borderRadius: '18px',
+                background: 'rgba(195,180,255,0.14)',
                  marginBottom: '1rem',
                  padding: '1rem 1.1rem .7rem',
                  boxShadow: '0 1px 6px 0 rgba(110,60,190,0.06)',
