@@ -2,10 +2,9 @@ import React from 'react';
 import { useRecipeStore } from './recipeStore';
 
 const FilterOptions = () => {
-  const { recipes, setSearchTerm } = useRecipeStore(state => ({
-    recipes: state.recipes,
-    setSearchTerm: state.setSearchTerm
-  }));
+  // بدل ما تجمعهم في object واحد، استدعيهم بشكل منفصل
+  const recipes = useRecipeStore(state => state.recipes);
+  const setSearchTerm = useRecipeStore(state => state.setSearchTerm);
 
   const clearFilters = () => {
     setSearchTerm('');
