@@ -1,25 +1,37 @@
+/* src/components/RecipeList.jsx */
 import { useRecipeStore } from './recipeStore';
 import { Link } from 'react-router-dom';
 
-const RecipeList = () => {
-  const recipes = useRecipeStore(state => state.recipes);
+export default function RecipeList() {
+  const recipes = useRecipeStore(s => s.recipes);
+  const term = useRecipeStore(s => s.searchTerm).toLowerCase();
+  const list = term
+    ? recipes.filter(r =>
+        r.title.toLowerCase().includes(term) ||
+        r.description.toLowerCase().includes(term)
+      )
+    : recipes;
 
-  if (recipes.length === 0) return <p>No recipes added yet.</p>;
+  if (!list.length) {
+    return <p style={{ textAlign: 'center', color: '#777' }}>No recipes found</p>;
+  }
 
   return (
-    <div>
-      {recipes.map(recipe => (
-        <div key={recipe.id} style={{ marginBottom: '1rem', padding: '1rem', background: '#f1f0fc', borderRadius: '10px' }}>
-          <h3>
-            <Link to={`/recipes/${recipe.id}`} style={{ textDecoration: 'none', color: '#4542b8' }}>
-              {recipe.title}
-            </Link>
-          </h3>
-          <p>{recipe.description}</p>
-        </div>
+    <div style={{ display: 'grid', gap: 12 }}>
+      {list.map(r => (
+        <Link key={r.id} to={`/recipes/${r.id}`} style={cardStyles}>
+          <h3 style={{ margin: '0 0 4px', color: '#5a2d82' }}>{r.title}</h3>
+          <p style={{ margin: 0, color: '#555' }}>{r.description}</p>
+        </Link>
       ))}
     </div>
   );
-};
+}
 
-export default RecipeList;
+const cardStyles = {
+  padding: 12,
+  background: '#f9f9f9',
+  borderRadius: 4,
+  textDecoration: 'none',
+  boxShadow: '0 1px 4px rgba(0,0,0,0.1)',
+};

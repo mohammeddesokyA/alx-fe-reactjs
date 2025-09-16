@@ -1,80 +1,62 @@
+/* src/components/AddRecipeForm.jsx */
 import { useState } from 'react';
 import { useRecipeStore } from './recipeStore';
 
-const AddRecipeForm = () => {
-  const addRecipe = useRecipeStore(state => state.addRecipe);
+export default function AddRecipeForm() {
+  const addRecipe = useRecipeStore(s => s.addRecipe);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    if (!title.trim() || !description.trim()) return;
+  const submit = e => {
+    e.preventDefault();
+    if (!title || !description) return;
     addRecipe({ id: Date.now(), title, description });
-    setTitle('');
-    setDescription('');
+    setTitle(''); setDescription('');
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      style={{
-        display: 'flex',
-        gap: '1rem',
-        marginBottom: '1.7rem',
-        justifyContent: 'center',
-      }}
-    >
+    <form onSubmit={submit} style={formStyles}>
       <input
-        type="text"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-        placeholder="Title"
-        style={{
-          flex: 1,
-          padding: '.85rem 1.1rem',
-          fontSize: '1rem',
-          borderRadius: '10px',
-          border: '1.5px solid #dfdcef',
-          background: '#252d3b15',
-          color: '#323049',
-          outline: 'none',
-        }}
+        value={title} onChange={e => setTitle(e.target.value)}
+        placeholder="Recipe Title"
+        style={inputStyles}
       />
       <textarea
-        value={description}
-        onChange={(e) => setDescription(e.target.value)}
-        placeholder="Description"
-        style={{
-          flex: 2,
-          padding: '.85rem 1.1rem',
-          fontSize: '1rem',
-          borderRadius: '10px',
-          border: '1.5px solid #dfdcef',
-          background: '#252d3b15',
-          color: '#323049',
-          outline: 'none',
-          minHeight: '40px',
-          resize: 'vertical',
-        }}
+        value={description} onChange={e => setDescription(e.target.value)}
+        placeholder="Recipe Description"
+        style={textareaStyles}
       />
-      <button
-        type="submit"
-        style={{
-          background: 'linear-gradient(90deg, #a996fc 30%, #fa72fa 90%)',
-          color: '#fff',
-          fontWeight: 700,
-          fontSize: '1.1rem',
-          border: 'none',
-          borderRadius: '8px',
-          padding: '0 1.5rem',
-          boxShadow: '0 2px 10px #e1d4ff5a',
-          cursor: 'pointer',
-        }}
-      >
-        Add Recipe
-      </button>
+      <button type="submit" style={buttonStyles}>Add Recipe</button>
     </form>
   );
+}
+
+const formStyles = {
+  display: 'flex',
+  gap: 10,
+  marginBottom: 20,
 };
 
-export default AddRecipeForm;
+const inputStyles = {
+  flex: 1,
+  padding: 8,
+  borderRadius: 4,
+  border: '1px solid #ccc',
+};
+
+const textareaStyles = {
+  flex: 2,
+  padding: 8,
+  borderRadius: 4,
+  border: '1px solid #ccc',
+  resize: 'vertical',
+};
+
+const buttonStyles = {
+  padding: '8px 16px',
+  background: '#5a2d82',
+  color: '#fff',
+  border: 'none',
+  borderRadius: 4,
+  cursor: 'pointer',
+};

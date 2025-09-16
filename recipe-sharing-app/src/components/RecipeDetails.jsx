@@ -3,26 +3,35 @@ import EditRecipeForm from './EditRecipeForm';
 import DeleteRecipeButton from './DeleteRecipeButton';
 import { useState } from 'react';
 
-const RecipeDetails = ({ recipeId }) => {
-  const recipe = useRecipeStore(state => state.recipes.find(r => r.id === recipeId));
-  const [isEditing, setIsEditing] = useState(false);
-
-  if (!recipe) return <p>Recipe not found.</p>;
+export default function RecipeDetails({ recipeId }) {
+  const recipe = useRecipeStore(s =>
+    s.recipes.find(r => r.id === recipeId)
+  );
+  const [edit, setEdit] = useState(false);
+  if (!recipe) return <p>Recipe not found</p>;
 
   return (
     <div>
-      {isEditing ? (
-        <EditRecipeForm recipe={recipe} onFinish={() => setIsEditing(false)} />
+      {edit ? (
+        <EditRecipeForm recipe={recipe} onFinish={() => setEdit(false)} />
       ) : (
         <>
-          <h1>{recipe.title}</h1>
-          <p>{recipe.description}</p>
-          <button onClick={() => setIsEditing(true)}>Edit</button>
-          <DeleteRecipeButton recipeId={recipe.id} />
+          <h2 style={{ color: '#5a2d82' }}>{recipe.title}</h2>
+          <p style={{ color: '#333' }}>{recipe.description}</p>
+          <button onClick={() => setEdit(true)} style={smallBtn}>Edit</button>
+          <DeleteRecipeButton recipeId={recipeId} />
         </>
       )}
     </div>
   );
-};
+}
 
-export default RecipeDetails;
+const smallBtn = {
+  marginRight: 10,
+  padding: '6px 12px',
+  border: '1px solid #5a2d82',
+  background: '#fff',
+  color: '#5a2d82',
+  borderRadius: 4,
+  cursor: 'pointer',
+};
