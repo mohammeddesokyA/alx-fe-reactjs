@@ -1,21 +1,7 @@
-// src/components/AddRecipeForm.jsx
 import { useState } from 'react';
 import { useRecipeStore } from './recipeStore';
 
-const btnAnim = {
-  transition: 'all 0.3s cubic-bezier(.56,2,.45,.78)',
-  background: 'linear-gradient(90deg, #a996fc 30%, #fa72fa 90%)',
-  color: '#fff',
-  fontWeight: 700,
-  fontSize: '1.1rem',
-  border: 'none',
-  borderRadius: '8px',
-  padding: '0 1.5rem',
-  boxShadow: '0 2px 10px #e1d4ff5a',
-  cursor: 'pointer',
-};
-
-export default function AddRecipeForm() {
+const AddRecipeForm = () => {
   const addRecipe = useRecipeStore(state => state.addRecipe);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
@@ -52,13 +38,9 @@ export default function AddRecipeForm() {
           background: '#252d3b15',
           color: '#323049',
           outline: 'none',
-          transition: 'border 0.25s',
         }}
-        onFocus={e => e.target.style.border = '2px solid #9f8dfd'}
-        onBlur={e => e.target.style.border = '1.5px solid #dfdcef'}
       />
-      <input
-        type="text"
+      <textarea
         value={description}
         onChange={(e) => setDescription(e.target.value)}
         placeholder="Description"
@@ -71,14 +53,28 @@ export default function AddRecipeForm() {
           background: '#252d3b15',
           color: '#323049',
           outline: 'none',
-          transition: 'border 0.25s',
+          minHeight: '40px',
+          resize: 'vertical',
         }}
-        onFocus={e => e.target.style.border = '2px solid #fa72fa'}
-        onBlur={e => e.target.style.border = '1.5px solid #dfdcef'}
       />
-      <button type="submit" style={btnAnim}>
+      <button
+        type="submit"
+        style={{
+          background: 'linear-gradient(90deg, #a996fc 30%, #fa72fa 90%)',
+          color: '#fff',
+          fontWeight: 700,
+          fontSize: '1.1rem',
+          border: 'none',
+          borderRadius: '8px',
+          padding: '0 1.5rem',
+          boxShadow: '0 2px 10px #e1d4ff5a',
+          cursor: 'pointer',
+        }}
+      >
         Add Recipe
       </button>
     </form>
   );
-}
+};
+
+export default AddRecipeForm;
