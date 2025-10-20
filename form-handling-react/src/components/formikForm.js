@@ -4,13 +4,16 @@ import * as Yup from "yup";
 const validationSchema = Yup.object({
   username: Yup.string().required("Username is required"),
   email: Yup.string().email("Invalid email").required("Email is required"),
-  password: Yup.string().min(6, "Password must be at least 6 chars").required("Password is required"),
+  password: Yup.string()
+    .min(6, "Password must be at least 6 characters")
+    .required("Password is required"),
 });
 
 function FormikForm() {
   const handleSubmit = (values, { resetForm }) => {
-    console.log("Formik Form Submitted:", values);
+    console.log("Formik form submitted:", values);
 
+    // Mock API call
     fetch("https://jsonplaceholder.typicode.com/users", {
       method: "POST",
       body: JSON.stringify(values),
@@ -34,17 +37,29 @@ function FormikForm() {
         <Form>
           <div style={{ marginBottom: "10px" }}>
             <Field name="username" placeholder="Username" />
-            <ErrorMessage name="username" component="p" style={{ color: "red" }} />
+            <ErrorMessage
+              name="username"
+              component="p"
+              style={{ color: "red" }}
+            />
           </div>
 
           <div style={{ marginBottom: "10px" }}>
             <Field name="email" type="email" placeholder="Email" />
-            <ErrorMessage name="email" component="p" style={{ color: "red" }} />
+            <ErrorMessage
+              name="email"
+              component="p"
+              style={{ color: "red" }}
+            />
           </div>
 
           <div style={{ marginBottom: "10px" }}>
             <Field name="password" type="password" placeholder="Password" />
-            <ErrorMessage name="password" component="p" style={{ color: "red" }} />
+            <ErrorMessage
+              name="password"
+              component="p"
+              style={{ color: "red" }}
+            />
           </div>
 
           <button type="submit">Register</button>
@@ -55,3 +70,4 @@ function FormikForm() {
 }
 
 export default FormikForm;
+           
