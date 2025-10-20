@@ -11,7 +11,6 @@ function FormikForm() {
   const handleSubmit = (values, { resetForm }) => {
     console.log("Formik Form Submitted:", values);
 
-    // Mock API call
     fetch("https://jsonplaceholder.typicode.com/users", {
       method: "POST",
       body: JSON.stringify(values),
