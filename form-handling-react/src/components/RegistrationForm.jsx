@@ -4,20 +4,27 @@ function RegistrationForm() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const [errors, setErrors] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!username || !email || !password) {
-      setError("All fields are required!");
+    if (!username) {
+      setErrors("Username is required");
+      return;
+    }
+    if (!email) {
+      setErrors("Email is required");
+      return;
+    }
+    if (!password) {
+      setErrors("Password is required");
       return;
     }
 
-    setError("");
+    setErrors("");
 
     const userData = { username, email, password };
-
     console.log("Form submitted:", userData);
 
     // Mock API call
@@ -62,7 +69,7 @@ function RegistrationForm() {
           style={{ display: "block", marginBottom: "10px", width: "100%" }}
         />
 
-        {error && <p style={{ color: "red" }}>{error}</p>}
+        {errors && <p style={{ color: "red" }}>{errors}</p>}
         <button type="submit">Register</button>
       </form>
     </div>
