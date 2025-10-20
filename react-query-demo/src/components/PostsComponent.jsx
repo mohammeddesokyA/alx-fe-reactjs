@@ -14,11 +14,14 @@ function PostsComponent() {
     error,
     refetch,
     isFetching,
-    dataUpdatedAt, // وقت آخر تحديث
+    dataUpdatedAt,
   } = useQuery({
     queryKey: ["posts"],
     queryFn: fetchPosts,
     staleTime: 1000 * 30, // 30 ثانية
+    cacheTime: 1000 * 60 * 5, // 🕒 تخزين البيانات في الكاش لمدة 5 دقائق
+    refetchOnWindowFocus: false, // 🚫 ما يعيدش الجلب لما ترجع على النافذة
+    keepPreviousData: true, // ✅ يحتفظ بالبيانات القديمة أثناء التحديث
   });
 
   if (isLoading) return <p>Loading posts...</p>;
