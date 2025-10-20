@@ -1,11 +1,9 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
-import Profile from "./components/Profile";
+import Profile from "./pages/Profile";
 import Blog from "./pages/Blog";
-import Post from "./pages/Post";
-import ProfileDetails from "./components/ProfileDetails";
-import ProfileSettings from "./components/ProfileSettings";
+import BlogPost from "./pages/BlogPost"; // ✅ أضف ده
 import ProtectedRoute from "./components/ProtectedRoute";
 import { useState } from "react";
 
@@ -19,8 +17,10 @@ export default function App() {
         <button onClick={() => setIsAuthenticated(!isAuthenticated)}>
           {isAuthenticated ? "Logout" : "Login"}
         </button>
+
         <Routes>
           <Route path="/" element={<Home />} />
+
           <Route
             path="/profile/*"
             element={
@@ -28,12 +28,10 @@ export default function App() {
                 <Profile />
               </ProtectedRoute>
             }
-          >
-            <Route path="details" element={<ProfileDetails />} />
-            <Route path="settings" element={<ProfileSettings />} />
-          </Route>
+          />
+
           <Route path="/blog" element={<Blog />} />
-          <Route path="/post/:id" element={<Post />} />
+          <Route path="/blog/:id" element={<BlogPost />} /> {/* ✅ المطلوب */}
         </Routes>
       </div>
     </Router>
